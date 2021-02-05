@@ -28,10 +28,9 @@ let provider = (async function () {
     };
 })();
 
-class ElectronWindow {
-    private _win: BrowserWindow;
+class AppMainWindow extends BrowserWindow {
     constructor() {
-        this._win = new BrowserWindow({
+        super({
             width: 800,
             height: 600,
             webPreferences: {
@@ -41,11 +40,11 @@ class ElectronWindow {
             },
         });
 
-        provider.then(inst => this._win.loadURL(inst.url));
+        provider.then(inst => this.loadURL(inst.url));
     }
 }
 
-app.whenReady().then(() => new ElectronWindow())
+app.whenReady().then(() => new AppMainWindow())
 
 
 app.on('window-all-closed', () => {
@@ -57,6 +56,6 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-        new ElectronWindow()
+        new AppMainWindow()
     }
 })
