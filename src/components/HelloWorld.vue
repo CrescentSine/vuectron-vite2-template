@@ -47,7 +47,8 @@ export default defineComponent({
     }
   },
   setup: () => {
-    const count = ref(0)
+    const count = ref(0);
+    electron.sayHello("Hello, world");
     return { count }
   }
 })
